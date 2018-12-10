@@ -3,7 +3,7 @@ const app = express();
 
 // route handler for get request
 app.get('/', (req, res) => {
-  res.send({hi: 'there'});
+  res.send({bye: 'buddy'});
 });
 
 // app.listen: express telling node (the runtime) what port to listen to
