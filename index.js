@@ -16,7 +16,7 @@ app.use(
     keys: [keys.cookieKey] //encrypts cookie
   })
 );
-// tell passport to use cookie
+// tell passport to use cookies to manage authentication
 app.use(passport.initialize());
 app.use(passport.session());
 require('./routes/authRoutes')(app);
