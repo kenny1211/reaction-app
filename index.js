@@ -10,6 +10,7 @@ mongoose.connect(keys.mongoURI);
 
 const app = express();
 
+// middleware - preprocessing of different requests before being sent to route handler
 app.use(
   cookieSession({
     maxAge: 30 * 24 * 60 * 60 * 1000, //want cookie to last 30 days
