@@ -1,4 +1,5 @@
 // primary app for rendering redux side of application and root component to DOM
+import 'materialize-css/dist/css/materialize.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
