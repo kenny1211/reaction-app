@@ -10,13 +10,21 @@ module.exports = app => {
   );
 
   // route handler which hits after the google strat performs callbackURL argument
-  // inside URL contains code, passport handles code to create user profile
-  app.get('/auth/google/callback', passport.authenticate('google'));
+  // inside URL contains code, passport handles code to create/get user profile
+  // after done w successful passport auth call redirect
+  app.get(
+    '/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+      res.redirect('/surveys');
+     }
+  );
 
   // route handler to log user out
   app.get('/api/logout', (req, res) => {
     req.logout(); //function attached automatically by passport
-    res.send(req.user); //should send empty screen if user's logged out
+    // redirect user to root route
+    res.redirect('/');
   });
 
   // test if auth flow works be sending back user info
