@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import Payments from "./Payments";
 
 class Header extends Component {
   // helper method to inspect this.props.auth property and depending on value, return what ul to display
@@ -9,9 +10,20 @@ class Header extends Component {
       case null:
         return;
       case false:
-        return <li><a href="/auth/google">Sign In With Google</a></li>
+        return (
+          <li>
+            <a href="/auth/google">Sign In With Google</a>
+          </li>
+        );
       default:
-        return <li><a href="/api/logout">Logout</a></li>
+        return [
+          <li key="1">
+            <Payments />
+          </li>,
+          <li key="2">
+            <a href="/api/logout">Logout</a>
+          </li>
+        ];
     }
   }
 
@@ -19,15 +31,13 @@ class Header extends Component {
     return (
       <nav>
         <div className="nav-wrapper">
-          <Link 
-            to={this.props.auth ? '/surveys' : '/'}
+          <Link
+            to={this.props.auth ? "/surveys" : "/"}
             className="left brand-logo"
           >
             Reaction
           </Link>
-          <ul className="right">
-            {this.renderContent()}
-          </ul>
+          <ul className="right">{this.renderContent()}</ul>
         </div>
       </nav>
     );
@@ -37,7 +47,7 @@ class Header extends Component {
 // call state(auth property) object in redux store
 function mapStateToProps({ auth }) {
   return { auth };
-} 
+}
 
 // hook up Header to redux store with connect helper from react-redux
 export default connect(mapStateToProps)(Header);
