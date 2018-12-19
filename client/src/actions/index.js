@@ -5,7 +5,7 @@
 import axios from "axios";
 import { FETCH_USER } from "./types";
 
-//reduxThunk handles middleware as argument for function
+//reduxThunk handles middleware as argument for function (dispatch)
 export const fetchUser = () => async dispatch => {
   const res = await axios.get("/api/current_user");
 
