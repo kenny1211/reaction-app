@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const cookieSession = require("cookie-session");
-const passport = require("passport");
-const bodyParser = require("body-parser");
-const keys = require("./config/keys");
-require("./models/User");
-require("./services/passport");
+const express = require('express');
+const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+const bodyParser = require('body-parser');
+const keys = require('./config/keys');
+require('./models/User');
+require('./services/passport');
 
 mongoose.connect(keys.mongoURI);
 
@@ -25,8 +25,18 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // require statements exports the function with (app) as the argument
-require("./routes/authRoutes")(app);
-require("./routes/billingRoutes")(app);
+require('./routes/authRoutes')(app);
+require('./routes/billingRoutes')(app);
+// configuration for how express should behave in production
+if (process.env.NODE_ENV === 'production') {
+  // ensure express serves up production assets (main.js, main.css files)
+  app.use(express.static('client/build'));
+  // ensure express will serve up index.html file if it does not recognize route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // app.listen: express telling node (the runtime) what port to listen to
 // process.env: look at the underlying environment and see if they declared a port
