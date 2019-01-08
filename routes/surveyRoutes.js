@@ -13,7 +13,7 @@ module.exports = app => {
       subject,
       body,
       //recipients: take emails which is an array of strings and turn into array of objects
-      recipients: recipients.split(',').map(email => ({ email })),
+      recipients: recipients.split(',').map(email => ({ email: email.trim() })),
       _user: req.user.id,
       dateSent: Date.now()
     });
