@@ -28,6 +28,7 @@ app.use(passport.session());
 // require statements exports the function with (app) as the argument
 require('./routes/authRoutes')(app);
 require('./routes/billingRoutes')(app);
+require('./routes/surveyRoutes')(app);
 // configuration for how express should behave in production
 if (process.env.NODE_ENV === 'production') {
   // ensure express serves up production assets (main.js, main.css files)
