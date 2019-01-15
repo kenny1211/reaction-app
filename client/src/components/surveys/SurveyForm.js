@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import _ from 'lodash';
+import { Link } from 'react-router-dom';
 
 const FIELDS = [
   { label: 'Survey Title', name: 'title' },
@@ -25,7 +26,13 @@ class SurveyForm extends Component {
         {/* Field can show any type of input specified by props given to it */}
         <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
           {this.renderFields()}
-          <button type="submit">Submit</button>
+          <Link to="/surveys" className="red btn-flat white-text">
+            Cancel
+          </Link>
+          <button type="submit" className="teal btn-flat right white-text">
+            Next
+            <i className="material-icons right">done</i>
+          </button>
         </form>
       </div>
     );
