@@ -39,6 +39,17 @@ class SurveyForm extends Component {
   }
 }
 
+// validation of values (contained inside of object)
+// if empty errors object returned redux form will know there are no errors and submit form
+function validate(values) {
+  const errors = {};
+  if (!values.title) {
+    errors.title = 'You must provide a title';
+  }
+  return errors;
+}
+
 export default reduxForm({
+  validate,
   form: 'surveyForm'
 })(SurveyForm);
