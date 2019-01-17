@@ -43,9 +43,13 @@ class SurveyForm extends Component {
 // if empty errors object returned redux form will know there are no errors and submit form
 function validate(values) {
   const errors = {};
-  if (!values.title) {
-    errors.title = 'You must provide a title';
-  }
+  _.each(FIELDS, ({ name }) => {
+    // not values.name because that would include name: key itself (name: 'title')
+    // square brackets provide just the actually value of key
+    if (!values[name]) {
+      errors[name] = 'You must provide a value';
+    }
+  });
   return errors;
 }
 
