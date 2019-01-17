@@ -5,6 +5,7 @@ import { reduxForm, Field } from 'redux-form';
 import SurveyField from './SurveyField';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import validateEmails from '../../utils/validateEmails';
 
 const FIELDS = [
   { label: 'Survey Title', name: 'title' },
@@ -43,6 +44,9 @@ class SurveyForm extends Component {
 // if empty errors object returned redux form will know there are no errors and submit form
 function validate(values) {
   const errors = {};
+
+  errors.emails = validateEmails(values.emails || ' ');
+
   _.each(FIELDS, ({ name }) => {
     // not values.name because that would include name: key itself (name: 'title')
     // square brackets provide just the actually value of key
@@ -50,6 +54,7 @@ function validate(values) {
       errors[name] = 'You must provide a value';
     }
   });
+
   return errors;
 }
 
