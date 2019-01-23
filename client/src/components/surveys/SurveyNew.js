@@ -22,7 +22,8 @@ class SurveyNew extends Component {
   }
 }
 
-// reduxForm defaul behavior - dumps form values on unmount, so it is wired up to CANCEL survey
+// reduxForm default behavior - dumps form values on unmount, so it is wired up to CANCEL survey
+// causes error for some reason: Warning: Failed prop type: Invalid prop `component` of type `object` supplied to `Route`, expected `function`.
 export default reduxForm({
   form: 'surveyForm'
 })(SurveyNew);
