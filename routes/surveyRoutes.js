@@ -4,7 +4,7 @@ const requireCredits = require('../middlewares/requireCredits');
 const Mailer = require('../services/Mailer');
 const surveyTemplate = require('../services/emailTemplates/surveyTemplate');
 const _ = require('lodash');
-const Path = require('path-parser');
+const Path = require('path-parser').default;
 const { URL } = require('url');
 
 //could require directly out of mongoose model class bc of possible issues when running tests
@@ -16,11 +16,25 @@ module.exports = app => {
 
   app.post('/api/surveys/webhooks', (req, res) => {
     // iterate over sendgrid events received, extract url, and parse out surveyId and choice
-    const events = _.map(req.body, event => {
-      const pathname = new URL(event.url).pathname;
-      const p = new Path('/api/surveys/:surveyId/:choice');
-      console.log(p.test(pathname));
-    });
+    const p = new Path('/api/surveys/:surveyId/:choice');
+
+    const events = _.chain(req.body)
+      .map(({ email, url }) => {
+        // match will be { surveyId, choice } or null
+        const match = p.test(new URL(url).pathname);
+        if (match) {
+          return { email, surveyId: match.surveyId, choice: match.choice };
+        }
+      })
+      // compact is a lodash function that removes undefined elements
+      .compact()
+      // uniqBy is a lodash function that removes duplicates
+      .uniqBy('email', 'surveyId')
+      .value();
+    console.log(events);
+
+    // respond to sendgrid to end request, otherwise sendgrid will continue to reping
+    res.send({});
   });
 
   app.post('/api/surveys', requireLogin, requireCredits, async (req, res) => {
