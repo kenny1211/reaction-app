@@ -18,7 +18,7 @@ module.exports = app => {
     // iterate over sendgrid events received, extract url, and parse out surveyId and choice
     const p = new Path('/api/surveys/:surveyId/:choice');
 
-    const events = _.chain(req.body)
+    _.chain(req.body)
       .map(({ email, url }) => {
         // match will be { surveyId, choice } or null
         const match = p.test(new URL(url).pathname);
@@ -30,8 +30,23 @@ module.exports = app => {
       .compact()
       // uniqBy is a lodash function that removes duplicates
       .uniqBy('email', 'surveyId')
+      .each(({ surveyId, email, choice }) => {
+        Survey.updateOne(
+          {
+            _id: surveyId,
+            recipients: {
+              $elemMatch: { email: email, responded: false }
+            }
+          },
+          {
+            // [choice] not an array, variable interpolation, js runtime will look for choice key (will be yes or no)
+            $inc: { [choice]: 1 },
+            // .$. lines up with the $elemMatch
+            $set: { 'recpients.$.responded': true }
+          }
+        ).exec();
+      })
       .value();
-    console.log(events);
 
     // respond to sendgrid to end request, otherwise sendgrid will continue to reping
     res.send({});
