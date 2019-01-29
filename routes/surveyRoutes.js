@@ -10,7 +10,7 @@ const { URL } = require('url');
 //could require directly out of mongoose model class bc of possible issues when running tests
 const Survey = mongoose.model('surveys');
 module.exports = app => {
-  app.get('/api/surveys/thanks', (req, res) => {
+  app.get('/api/surveys/:surveyId/:choice', (req, res) => {
     res.send('Thanks for voting!');
   });
 
@@ -42,7 +42,8 @@ module.exports = app => {
             // [choice] not an array, variable interpolation, js runtime will look for choice key (will be yes or no)
             $inc: { [choice]: 1 },
             // .$. lines up with the $elemMatch
-            $set: { 'recpients.$.responded': true }
+            $set: { 'recipients.$.responded': true },
+            lastResponded: new Date()
           }
         ).exec();
       })
