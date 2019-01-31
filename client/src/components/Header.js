@@ -12,7 +12,9 @@ class Header extends Component {
       case false:
         return (
           <li>
-            <a href="/auth/google">Sign In With Google</a>
+            <a className="black-text" href="/auth/google">
+              Sign In With Google
+            </a>
           </li>
         );
       default:
@@ -24,7 +26,9 @@ class Header extends Component {
             Credits: {this.props.auth.credits}
           </li>,
           <li key="2">
-            <a href="/api/logout">Logout</a>
+            <a className="black-text" href="/api/logout">
+              Logout
+            </a>
           </li>
         ];
     }
@@ -33,14 +37,11 @@ class Header extends Component {
   render() {
     return (
       <nav>
-        <div className="nav-wrapper">
-          <Link
-            to={this.props.auth ? '/surveys' : '/'}
-            className="left brand-logo"
-          >
-            Reaction
+        <div className="nav-wrapper white">
+          <Link to={this.props.auth ? '/surveys' : '/'} className="left brand-logo">
+            <span className="black-text">Reaction</span>
           </Link>
-          <ul className="right">{this.renderContent()}</ul>
+          <ul className="black-text right">{this.renderContent()}</ul>
         </div>
       </nav>
     );
