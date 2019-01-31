@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 class Landing extends Component {
   render() {
@@ -19,10 +18,10 @@ class Landing extends Component {
           </div>
           <div className="center">
             <button className="btn-flat">
-              <Link to={this.props.auth ? '/surveys' : '/auth/google'}>
+              <a href={this.props.auth ? '/surveys' : '/auth/google'}>
                 Begin
                 <i className="material-icons right">folder_open</i>
-              </Link>
+              </a>
             </button>
           </div>
         </div>
