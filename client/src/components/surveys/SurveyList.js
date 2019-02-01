@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchSurveys } from '../../actions';
+import SurveyInstructions from './SurveyInstructions';
 
 class SurveyList extends Component {
   componentDidMount() {
@@ -26,7 +27,15 @@ class SurveyList extends Component {
   }
 
   render() {
-    return <div>{this.renderSurveys()}</div>;
+    return (
+      <div>
+        <div className="center">
+          <h3>Survey List</h3>
+          <SurveyInstructions />
+        </div>
+        <div>{this.renderSurveys()}</div>
+      </div>
+    );
   }
 }
 
