@@ -45,12 +45,25 @@ class SurveyInstructions extends Component {
           contentLabel="Survey Instructions"
         >
           <div className="modal-content">
-            <h1>Content!</h1>
+            <ul>
+              <li>
+                Add Credit:
+                <li>
+                  Stripe is in test mode, so just enter the test credit card #: 4242 4242 4242 4242
+                </li>
+                <li>The cvc code can be any numbers</li>
+                <li>The expiration date can be any date in the future</li>
+              </li>
+              <br />
+              <li>Afterwards 5 credits will appear in the header</li>
+              <li>A survey costs 1 credit to send</li>
+              <li>To create a survey just click the plus button on the bottom right!</li>
+            </ul>
           </div>
           <div className="modal-footer">
-            <button className="right btn" onClick={this.closeModal}>
-              Close
-            </button>
+            <a className="right btn-tiny" onClick={this.closeModal}>
+              <i className="material-icons">close</i>
+            </a>
           </div>
         </Modal>
       </div>
