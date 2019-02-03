@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import validateEmails from '../../utils/validateEmails';
 import formFields from './formFields';
+import SurveyFormInstructions from './SurveyFormInstructions';
 
 class SurveyForm extends Component {
   renderFields() {
@@ -18,6 +19,10 @@ class SurveyForm extends Component {
   render() {
     return (
       <div>
+        <div className="center">
+          <h3>Survey Creation</h3>
+          <SurveyFormInstructions />
+        </div>
         {/* Field can show any type of input specified by props given to it */}
         <form onSubmit={this.props.handleSubmit(this.props.onSurveySubmit)}>
           {this.renderFields()}
