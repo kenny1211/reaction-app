@@ -15,23 +15,25 @@ class SurveyList extends Component {
         labels: ['Yes', 'No'],
         datasets: [
           {
-            data: [survey.yes, survey.no]
+            data: [survey.yes, survey.no],
+            backgroundColor: ['rgba(0,255,0,0.3)', 'rgba(255,0,0,0.3)']
           }
-        ],
-        backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)']
+        ]
       };
 
       return (
-        <div className="card darken-1" key={survey._id}>
-          <div className="card-content">
+        <div
+          className="col card s3 col-content darken-1"
+          key={survey._id}
+          style={{ width: '50%', display: 'inline-block' }}
+        >
+          <div className="card-content center">
             <span className="card-title">{survey.title}</span>
             <p>{survey.body}</p>
-            <p className="right">Sent On: {new Date(survey.dateSent).toLocaleDateString()}</p>
+            <p>Sent On: {new Date(survey.dateSent).toLocaleDateString()}</p>
           </div>
-          <div className="card-image">
+          <div className="card-image" style={{ position: 'relative' }}>
             <Doughnut data={data} />
-            <a>Yes: {survey.yes}</a>
-            <a>No: {survey.no}</a>
           </div>
         </div>
       );
